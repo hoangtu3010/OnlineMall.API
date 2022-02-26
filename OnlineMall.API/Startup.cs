@@ -32,7 +32,7 @@ namespace OnlineMall.API
             services.AddCors(options =>
             {
                 options.AddPolicy(name: MyAllowOrigins,
-                    builder => builder.AllowCredentials().AllowAnyMethod().AllowAnyHeader()
+                    builder => builder.AllowAnyOrigin()
                     );
             });
 

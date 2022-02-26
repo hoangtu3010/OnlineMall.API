@@ -9,7 +9,7 @@ using OnlineMall.API.Models;
 
 namespace OnlineMall.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
