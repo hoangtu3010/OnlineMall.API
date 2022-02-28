@@ -11,7 +11,7 @@ namespace OnlineMall.API.Models
         public string Logo { get; set; }
         public string Contact { get; set; }
         [DataType(DataType.Time)]
-        public DateTime Time { get; set; }
+        public DateTime ShowTime { get; set; }
         public string Link { get; set; }
         public string Description { get; set; }
         public int? Department_Id { get; set; }

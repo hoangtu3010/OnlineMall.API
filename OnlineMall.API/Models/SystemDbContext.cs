@@ -19,6 +19,7 @@ namespace OnlineMall.API.Models
         public DbSet<Gallery> Galleries { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Movies> Movies { get; set; }
+        public DbSet<MoviesToday> MoviesToday { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<Seats> Seats { get; set; }
         public DbSet<Booking> Bookings { get; set; }

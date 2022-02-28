@@ -10,8 +10,8 @@ using OnlineMall.API.Models;
 namespace OnlineMall.API.Migrations
 {
     [DbContext(typeof(SystemDbContext))]
-    [Migration("20220221130502_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220228031844_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,10 +28,10 @@ namespace OnlineMall.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("MoviesId")
+                    b.Property<int?>("MoviesTodayId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Movies_Id")
+                    b.Property<int?>("MoviesToday_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -51,7 +51,7 @@ namespace OnlineMall.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MoviesId");
+                    b.HasIndex("MoviesTodayId");
 
                     b.HasIndex("SeatsId");
 
@@ -207,9 +207,6 @@ namespace OnlineMall.API.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PremiereTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -221,6 +218,32 @@ namespace OnlineMall.API.Migrations
                     b.HasIndex("GenreId");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("OnlineMall.API.Models.MoviesToday", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("MoviesId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Movies_Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ShowDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ShowTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MoviesId");
+
+                    b.ToTable("MoviesToday");
                 });
 
             modelBuilder.Entity("OnlineMall.API.Models.Product", b =>
@@ -351,7 +374,7 @@ namespace OnlineMall.API.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Time")
+                    b.Property<DateTime>("ShowTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -387,15 +410,15 @@ namespace OnlineMall.API.Migrations
 
             modelBuilder.Entity("OnlineMall.API.Models.Booking", b =>
                 {
-                    b.HasOne("OnlineMall.API.Models.Movies", "Movies")
+                    b.HasOne("OnlineMall.API.Models.MoviesToday", "MoviesToday")
                         .WithMany()
-                        .HasForeignKey("MoviesId");
+                        .HasForeignKey("MoviesTodayId");
 
                     b.HasOne("OnlineMall.API.Models.Seats", "Seats")
                         .WithMany()
                         .HasForeignKey("SeatsId");
 
-                    b.Navigation("Movies");
+                    b.Navigation("MoviesToday");
 
                     b.Navigation("Seats");
                 });
@@ -425,6 +448,15 @@ namespace OnlineMall.API.Migrations
                         .HasForeignKey("GenreId");
 
                     b.Navigation("Genre");
+                });
+
+            modelBuilder.Entity("OnlineMall.API.Models.MoviesToday", b =>
+                {
+                    b.HasOne("OnlineMall.API.Models.Movies", "Movies")
+                        .WithMany()
+                        .HasForeignKey("MoviesId");
+
+                    b.Navigation("Movies");
                 });
 
             modelBuilder.Entity("OnlineMall.API.Models.Product", b =>

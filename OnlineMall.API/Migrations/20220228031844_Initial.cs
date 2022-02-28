@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OnlineMall.API.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -130,7 +130,7 @@ namespace OnlineMall.API.Migrations
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Logo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Contact = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ShowTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Link = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Department_Id = table.Column<int>(type: "int", nullable: true),
@@ -158,7 +158,6 @@ namespace OnlineMall.API.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Trailer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PremiereTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Genre_Id = table.Column<int>(type: "int", nullable: true),
                     GenreId = table.Column<int>(type: "int", nullable: true)
@@ -221,32 +220,23 @@ namespace OnlineMall.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bookings",
+                name: "MoviesToday",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Movies_Id = table.Column<int>(type: "int", nullable: true),
                     MoviesId = table.Column<int>(type: "int", nullable: true),
-                    Seats_Id = table.Column<int>(type: "int", nullable: true),
-                    SeatsId = table.Column<int>(type: "int", nullable: true)
+                    ShowDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ShowTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                    table.PrimaryKey("PK_MoviesToday", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bookings_Movies_MoviesId",
+                        name: "FK_MoviesToday_Movies_MoviesId",
                         column: x => x.MoviesId,
                         principalTable: "Movies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Bookings_Seats_SeatsId",
-                        column: x => x.SeatsId,
-                        principalTable: "Seats",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -275,10 +265,41 @@ namespace OnlineMall.API.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MoviesToday_Id = table.Column<int>(type: "int", nullable: true),
+                    MoviesTodayId = table.Column<int>(type: "int", nullable: true),
+                    Seats_Id = table.Column<int>(type: "int", nullable: true),
+                    SeatsId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bookings_MoviesToday_MoviesTodayId",
+                        column: x => x.MoviesTodayId,
+                        principalTable: "MoviesToday",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Seats_SeatsId",
+                        column: x => x.SeatsId,
+                        principalTable: "Seats",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_MoviesId",
+                name: "IX_Bookings_MoviesTodayId",
                 table: "Bookings",
-                column: "MoviesId");
+                column: "MoviesTodayId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Bookings_SeatsId",
@@ -299,6 +320,11 @@ namespace OnlineMall.API.Migrations
                 name: "IX_Movies_GenreId",
                 table: "Movies",
                 column: "GenreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MoviesToday_MoviesId",
+                table: "MoviesToday",
+                column: "MoviesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
@@ -334,7 +360,7 @@ namespace OnlineMall.API.Migrations
                 name: "Shops");
 
             migrationBuilder.DropTable(
-                name: "Movies");
+                name: "MoviesToday");
 
             migrationBuilder.DropTable(
                 name: "Seats");
@@ -349,13 +375,16 @@ namespace OnlineMall.API.Migrations
                 name: "Departments");
 
             migrationBuilder.DropTable(
-                name: "Genres");
+                name: "Movies");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Genres");
         }
     }
 }
