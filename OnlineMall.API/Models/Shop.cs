@@ -14,7 +14,7 @@ namespace OnlineMall.API.Models
         public DateTime ShowTime { get; set; }
         public string Link { get; set; }
         public string Description { get; set; }
-        public int? Department_Id { get; set; }
+        public int? DepartmentId { get; set; }
         public virtual Department Department { get; set; }
     }
 }

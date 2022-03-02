@@ -10,7 +10,7 @@ using OnlineMall.API.Models;
 namespace OnlineMall.API.Migrations
 {
     [DbContext(typeof(SystemDbContext))]
-    [Migration("20220228031844_Initial")]
+    [Migration("20220302023110_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,9 +31,6 @@ namespace OnlineMall.API.Migrations
                     b.Property<int?>("MoviesTodayId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MoviesToday_Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -41,9 +38,6 @@ namespace OnlineMall.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SeatsId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Seats_Id")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Total")
@@ -89,13 +83,10 @@ namespace OnlineMall.API.Migrations
                     b.Property<int?>("GalleryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Gallery_Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Reply_Id")
+                    b.Property<int?>("ReplyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -157,9 +148,6 @@ namespace OnlineMall.API.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("User_Id")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
@@ -198,9 +186,6 @@ namespace OnlineMall.API.Migrations
                     b.Property<int?>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Genre_Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -230,9 +215,6 @@ namespace OnlineMall.API.Migrations
                     b.Property<int?>("MoviesId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Movies_Id")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ShowDate")
                         .HasColumnType("datetime2");
 
@@ -254,9 +236,6 @@ namespace OnlineMall.API.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Category_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -301,9 +280,6 @@ namespace OnlineMall.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Product_Id")
                         .HasColumnType("int");
 
                     b.Property<int>("RateStar")
@@ -354,9 +330,6 @@ namespace OnlineMall.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Department_Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")

@@ -6,9 +6,9 @@
         public string Name { get; set; }
         public string Phone { get; set; }
         public decimal Total { get; set; }
-        public int? MoviesToday_Id { get; set; }
+        public int? MoviesTodayId { get; set; }
         public virtual MoviesToday MoviesToday { get; set; }
-        public int? Seats_Id { get; set; }
+        public int? SeatsId { get; set; }
         public virtual Seats Seats { get; set; }
     }
 }

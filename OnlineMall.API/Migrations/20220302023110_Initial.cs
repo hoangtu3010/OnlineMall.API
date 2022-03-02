@@ -106,7 +106,6 @@ namespace OnlineMall.API.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Quantily = table.Column<int>(type: "int", nullable: false),
-                    Category_Id = table.Column<int>(type: "int", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -133,7 +132,6 @@ namespace OnlineMall.API.Migrations
                     ShowTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Link = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Department_Id = table.Column<int>(type: "int", nullable: true),
                     DepartmentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -159,7 +157,6 @@ namespace OnlineMall.API.Migrations
                     Trailer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Duration = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Genre_Id = table.Column<int>(type: "int", nullable: true),
                     GenreId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -181,7 +178,6 @@ namespace OnlineMall.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    User_Id = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -205,7 +201,6 @@ namespace OnlineMall.API.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RateStar = table.Column<int>(type: "int", nullable: false),
-                    Product_Id = table.Column<int>(type: "int", nullable: true),
                     ProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -225,7 +220,6 @@ namespace OnlineMall.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Movies_Id = table.Column<int>(type: "int", nullable: true),
                     MoviesId = table.Column<int>(type: "int", nullable: true),
                     ShowDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ShowTime = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -250,9 +244,8 @@ namespace OnlineMall.API.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Gallery_Id = table.Column<int>(type: "int", nullable: true),
                     GalleryId = table.Column<int>(type: "int", nullable: true),
-                    Reply_Id = table.Column<int>(type: "int", nullable: true)
+                    ReplyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -274,9 +267,7 @@ namespace OnlineMall.API.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    MoviesToday_Id = table.Column<int>(type: "int", nullable: true),
                     MoviesTodayId = table.Column<int>(type: "int", nullable: true),
-                    Seats_Id = table.Column<int>(type: "int", nullable: true),
                     SeatsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
