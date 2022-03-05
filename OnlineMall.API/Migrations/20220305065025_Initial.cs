@@ -266,6 +266,7 @@ namespace OnlineMall.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     MoviesTodayId = table.Column<int>(type: "int", nullable: true),
                     SeatsId = table.Column<int>(type: "int", nullable: true)

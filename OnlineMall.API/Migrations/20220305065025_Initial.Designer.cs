@@ -10,7 +10,7 @@ using OnlineMall.API.Models;
 namespace OnlineMall.API.Migrations
 {
     [DbContext(typeof(SystemDbContext))]
-    [Migration("20220302023110_Initial")]
+    [Migration("20220305065025_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,9 @@ namespace OnlineMall.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MoviesTodayId")
                         .HasColumnType("int");
