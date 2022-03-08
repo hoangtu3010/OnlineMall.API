@@ -24,7 +24,7 @@ namespace OnlineMall.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Shop>>> GetShops()
         {
-            return await _context.Shops.ToListAsync();
+            return await _context.Shops.Include(c=>c.Department).ToListAsync();
         }
 
         // GET: api/Shops/5

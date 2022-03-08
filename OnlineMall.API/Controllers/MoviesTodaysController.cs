@@ -24,7 +24,7 @@ namespace OnlineMall.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MoviesToday>>> GetMoviesToday()
         {
-            return await _context.MoviesToday.ToListAsync();
+            return await _context.MoviesToday.Include(m => m.Movies).ToListAsync();
         }
 
         // GET: api/MoviesTodays/5
