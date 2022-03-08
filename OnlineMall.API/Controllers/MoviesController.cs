@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineMall.API.Models;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace OnlineMall.API.Controllers
 {
@@ -14,17 +17,19 @@ namespace OnlineMall.API.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly SystemDbContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public MoviesController(SystemDbContext context)
+        public MoviesController(SystemDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
         }
 
         // GET: api/Movies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movies>>> GetMovies()
         {
-            return await _context.Movies.ToListAsync();
+            return await _context.Movies.Include(m => m.Genre).ToListAsync();
         }
 
         // GET: api/Movies/5
@@ -77,10 +82,18 @@ namespace OnlineMall.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Movies>> PostMovies(Movies movies)
         {
-            _context.Movies.Add(movies);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Movies.Add(movies);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMovies", new { id = movies.Id }, movies);
+                return CreatedAtAction("GetMovies", new { id = movies.Id }, movies);
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         // DELETE: api/Movies/5
@@ -103,5 +116,6 @@ namespace OnlineMall.API.Controllers
         {
             return _context.Movies.Any(e => e.Id == id);
         }
+      
     }
 }

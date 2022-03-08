@@ -12,7 +12,6 @@ namespace OnlineMall.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
     public class CategoriesController : ControllerBase
     {
         private readonly SystemDbContext _context;

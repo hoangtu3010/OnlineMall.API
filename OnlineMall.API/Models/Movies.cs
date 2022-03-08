@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OnlineMall.API.Models
 {
@@ -7,7 +9,10 @@ namespace OnlineMall.API.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Image { get; set; }
+        public string ImageName { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
+        public string ImageSrc { get; set; }
         public decimal Price { get; set; }
         public string Trailer { get; set; }
         public string Description { get; set; }

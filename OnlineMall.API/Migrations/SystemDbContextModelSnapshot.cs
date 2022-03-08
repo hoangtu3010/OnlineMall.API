@@ -143,7 +143,10 @@ namespace OnlineMall.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageSrc")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
@@ -187,7 +190,10 @@ namespace OnlineMall.API.Migrations
                     b.Property<int?>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageSrc")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -242,7 +248,10 @@ namespace OnlineMall.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageSrc")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -250,12 +259,6 @@ namespace OnlineMall.API.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quantily")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RateStar")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -336,13 +339,19 @@ namespace OnlineMall.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageLogoName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageLogoSrc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageSrc")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

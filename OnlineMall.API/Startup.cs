@@ -32,11 +32,12 @@ namespace OnlineMall.API
             services.AddCors(options =>
             {
                 options.AddPolicy(name: MyAllowOrigins,
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
                     );
             });
 
             services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
 
             // add Authorize with token JWT
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
