@@ -77,6 +77,11 @@ namespace OnlineMall.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Seats>> PostSeats(Seats seats)
         {
+            var find =_context.Seats.Where(c=>c.Column==seats.Column&&c.Row==seats.Row);
+            if (find.Any())
+            {
+                return BadRequest();
+            }
             _context.Seats.Add(seats);
             await _context.SaveChangesAsync();
 

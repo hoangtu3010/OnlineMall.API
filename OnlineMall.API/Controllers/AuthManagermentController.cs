@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,11 +19,13 @@ namespace OnlineMall.API.Controllers
     {
         private readonly SystemDbContext _context;
         public IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthManagermentController(SystemDbContext context, IConfiguration configuration)
+        public AuthManagermentController(SystemDbContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public static string GetMD5(string str)
@@ -82,6 +85,20 @@ namespace OnlineMall.API.Controllers
                 return BadRequest("Email or Password invalid!");
             }
             return BadRequest();
+        }
+
+        [HttpGet]
+        public IActionResult GetCurrentUser()
+        {
+            try
+            {
+                var user = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                return Ok(user);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

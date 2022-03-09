@@ -26,6 +26,7 @@ namespace OnlineMall.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             // them ket noi db
             var connectionString = Configuration.GetConnectionString("OnlineMall");
             services.AddDbContextPool<Models.SystemDbContext>(options => options.UseSqlServer(connectionString));
