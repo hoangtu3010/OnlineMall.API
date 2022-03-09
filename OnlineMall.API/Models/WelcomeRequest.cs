@@ -7,7 +7,8 @@ namespace OnlineMall.API.Models
 {
     public class WelcomeRequest
     {
-        public string ToEmail { get; set; }
+        public string TICKET { get; set; }
         public string UserName { get; set; }
+        public string ToEmail { get; set; }
     }
 }

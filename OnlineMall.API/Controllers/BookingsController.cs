@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OnlineMall.API.Models;
+using OnlineMall.API.Services;
 
 namespace OnlineMall.API.Controllers
 {
@@ -14,10 +15,14 @@ namespace OnlineMall.API.Controllers
     public class BookingsController : ControllerBase
     {
         private readonly SystemDbContext _context;
+        private readonly IMailService mailService;
 
-        public BookingsController(SystemDbContext context)
+      
+        public BookingsController(SystemDbContext context, IMailService mailService)
         {
             _context = context;
+            this.mailService = mailService;
+
         }
 
         // GET: api/Bookings
@@ -25,6 +30,17 @@ namespace OnlineMall.API.Controllers
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
         {
             return await _context.Bookings.ToListAsync();
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Seats>>> GetSeatActive(int movieToday)
+        {
+            var ListBooking = await _context.Bookings.Include(c=>c.MoviesToday).Include(d=>d.Seats).Where(e=>e.MoviesTodayId==movieToday).ToListAsync();
+            var listSeat = new List<Seats>();
+            foreach (var item in ListBooking)
+            {
+                listSeat.Add(item.Seats);
+            }
+            return listSeat;
         }
 
         // GET: api/Bookings/5
@@ -78,7 +94,15 @@ namespace OnlineMall.API.Controllers
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
             _context.Bookings.Add(booking);
+            var res2 = new WelcomeRequest();
             await _context.SaveChangesAsync();
+            var seats = await _context.Seats.FindAsync(booking.SeatsId);
+            res2.ToEmail = booking.Email;
+            res2.UserName = booking.Name;
+            res2.TICKET = "Seat's name: "+ seats.Name +", row: "+ seats.Row + ", column: " + seats.Column;
+
+            await mailService.SendWelcomeEmailAsync(res2);
+
 
             return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
         }
