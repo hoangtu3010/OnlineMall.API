@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OnlineMall.API.Services;
+using OnlineMall.API.Settings;
 using System.Text;
 
 namespace OnlineMall.API
@@ -27,6 +29,10 @@ namespace OnlineMall.API
             // them ket noi db
             var connectionString = Configuration.GetConnectionString("OnlineMall");
             services.AddDbContextPool<Models.SystemDbContext>(options => options.UseSqlServer(connectionString));
+
+            //mail
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
 
             // add CORS
             services.AddCors(options =>
