@@ -24,7 +24,13 @@ namespace OnlineMall.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.Include(c=>c.Category).ToListAsync();
+            return await _context.Products.Include(c=>c.Category).Select(x => new Product()
+            {
+                Id = x.Id,
+                CategoryId = x.CategoryId,Name=x.Name,ImageName=x.ImageName,Description=x.Description,Price=x.Price,Category=x.Category,
+                ImageSrc=String.Format("{0}://{1}{2}/Images/{3}",Request.Scheme,Request.Host,Request.PathBase,x.ImageName)
+                
+            }).ToListAsync();
         }
 
         // GET: api/Products/5
@@ -32,6 +38,8 @@ namespace OnlineMall.API.Controllers
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
+            product.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, product.ImageName);
+
 
             if (product == null)
             {

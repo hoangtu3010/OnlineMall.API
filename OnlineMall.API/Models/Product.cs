@@ -12,6 +12,7 @@ namespace OnlineMall.API.Models
         public string ImageName { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+        [NotMapped]
         public string ImageSrc { get; set; }
         public int? CategoryId { get; set; }
         public virtual Category Category { get; set; }

@@ -24,7 +24,12 @@ namespace OnlineMall.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Gallery>>> GetGalleries()
         {
-            return await _context.Galleries.ToListAsync();
+            var list = await _context.Galleries.ToListAsync();
+            foreach (var item in list)
+            {
+                item.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, item.ImageName);
+            }
+            return list;
         }
 
         // GET: api/Galleries/5
@@ -32,6 +37,7 @@ namespace OnlineMall.API.Controllers
         public async Task<ActionResult<Gallery>> GetGallery(int id)
         {
             var gallery = await _context.Galleries.FindAsync(id);
+            gallery.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, gallery.ImageName);
 
             if (gallery == null)
             {
