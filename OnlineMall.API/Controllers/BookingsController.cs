@@ -32,13 +32,17 @@ namespace OnlineMall.API.Controllers
             return await _context.Bookings.ToListAsync();
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Seats>>> GetSeatActive(int movieToday)
+        public async Task<IEnumerable<Seats>> GetSeatActive(int movieToday)
         {
             var ListBooking = await _context.Bookings.Include(c=>c.MoviesToday).Include(d=>d.Seats).Where(e=>e.MoviesTodayId==movieToday).ToListAsync();
             var listSeat = new List<Seats>();
             foreach (var item in ListBooking)
             {
-                listSeat.Add(item.Seats);
+                if (!listSeat.Contains(item.Seats))
+                {
+                    listSeat.Add(item.Seats);
+
+                }
             }
             return listSeat;
         }

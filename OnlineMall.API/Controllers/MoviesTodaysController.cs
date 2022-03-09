@@ -31,13 +31,13 @@ namespace OnlineMall.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<MoviesToday>> GetMoviesToday(int id)
         {
-            var moviesToday = await _context.MoviesToday.FindAsync(id);
+            var moviesToday = await _context.MoviesToday.Include(c=>c.Movies).FirstOrDefaultAsync(i => i.Id == id);
 
             if (moviesToday == null)
             {
                 return NotFound();
             }
-
+            
             return moviesToday;
         }
 

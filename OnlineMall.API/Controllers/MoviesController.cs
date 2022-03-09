@@ -29,7 +29,12 @@ namespace OnlineMall.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movies>>> GetMovies()
         {
-            return await _context.Movies.Include(m => m.Genre).ToListAsync();
+            var list = await _context.Movies.Include(m => m.Genre).ToListAsync();
+            foreach(var item in list)
+            {
+                item.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, item.ImageName);
+            }
+            return list;
         }
 
         // GET: api/Movies/5
@@ -37,6 +42,7 @@ namespace OnlineMall.API.Controllers
         public async Task<ActionResult<Movies>> GetMovies(int id)
         {
             var movies = await _context.Movies.FindAsync(id);
+            movies.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, movies.ImageName);
 
             if (movies == null)
             {

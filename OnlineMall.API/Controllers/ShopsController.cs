@@ -24,7 +24,13 @@ namespace OnlineMall.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Shop>>> GetShops()
         {
-            return await _context.Shops.Include(c=>c.Department).ToListAsync();
+            return await _context.Shops.Include(c=>c.Department).Select(x=>new Shop() { 
+            Id=x.Id,Name=x.Name,ImageName=x.ImageName,ImageLogoName=x.ImageLogoName,
+            Contact=x.Contact,ShowTime=x.ShowTime,Link=x.Link,Department=x.Department,
+            DepartmentId=x.DepartmentId,Description=x.Description,
+            ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.ImageName),
+            ImageLogoSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, x.ImageLogoName)
+            }).ToListAsync();
         }
 
         // GET: api/Shops/5
@@ -32,6 +38,8 @@ namespace OnlineMall.API.Controllers
         public async Task<ActionResult<Shop>> GetShop(int id)
         {
             var shop = await _context.Shops.FindAsync(id);
+            shop.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, shop.ImageName);
+            shop.ImageLogoSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, shop.ImageLogoName);
 
             if (shop == null)
             {
