@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Configurations\" />
+    <Folder Include="Images\" />
     <Folder Include="NewFolder\" />
   </ItemGroup>
 
